@@ -1,28 +1,42 @@
-import formChangeHandler from "helpers/formChangeHandler";
-import { useRef, useState } from "react";
+import { useFormik } from "formik";
+import { useState } from "react";
 import SucceededNotification from "../SucceededNotification/SucceededNotification";
 import submitHandler from "./ChangeEmailFormLogic";
+import * as Yup from "yup";
 
 const ChangeEmailForm = ({ token, toast }) => {
-	const formInputs = useRef();
 	const [newEmail, setNewEmail] = useState();
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+		},
+		validationSchema: Yup.object({
+			email: Yup.string()
+				.trim()
+				.email("You must provide a valid email.")
+				.required("Required"),
+		}),
+		onSubmit: (values) => submitHandler(values, token, setNewEmail, toast),
+	});
 
 	return (
 		<section className="all-space xxs-f-center-xy">
 			{!newEmail ? (
-				<form
-					className="form"
-					onChange={(e) => formChangeHandler(e, formInputs)}
-					onSubmit={(e) =>
-						submitHandler(e, formInputs, token, setNewEmail, toast)
-					}
-				>
+				<form className="form" onSubmit={formik.handleSubmit}>
 					<h3 className="t3 c-white text-center">Email change</h3>
 
 					<label htmlFor="newEmail" className="body c-white">
 						New email:
 					</label>
-					<input type="email" name="newEmail" minLength={6} />
+					<input
+						type="email"
+						id="email"
+						name="email"
+						{...formik.getFieldProps("email")}
+					/>
+					{formik.touched.email && formik.errors.email ? (
+						<div className="formik-error">{formik.errors.email}</div>
+					) : null}
 
 					<button className="button" type="submit">
 						Confirm email

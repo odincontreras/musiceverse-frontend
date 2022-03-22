@@ -1,26 +1,12 @@
 import nprogress from "nprogress";
 
-export const changeHandler = (e, formInputs) => {
-	formInputs.current = {
-		...formInputs.current,
-		[e.target.name]: e.target.value,
-	};
-};
-
 export const submitHandler = async (
-	e,
 	formInputs,
 	dispatch,
 	setUser,
 	router,
 	toast
 ) => {
-	e.preventDefault();
-
-	const bodyData = {
-		email: formInputs.current.email,
-		password: formInputs.current.password,
-	};
 
 	nprogress.start();
 
@@ -31,7 +17,7 @@ export const submitHandler = async (
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(bodyData),
+			body: JSON.stringify(formInputs),
 		}
 	);
 

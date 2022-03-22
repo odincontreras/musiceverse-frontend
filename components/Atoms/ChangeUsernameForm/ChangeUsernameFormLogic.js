@@ -2,16 +2,14 @@ import { updateUser } from "store/reducers/user";
 import nprogress from "nprogress";
 
 export const submitHandler = async (
-	e,
 	formInputs,
 	token,
 	dispatch,
 	closeModal,
 	toast
 ) => {
-	e.preventDefault();
 
-	const newUsername = formInputs.current.newUsername;
+	const newUsername = formInputs.username;
   
 	nprogress.start();
 

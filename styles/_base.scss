@@ -296,6 +296,15 @@ address {
 	padding: 20px 0;
 }
 
+.formik-error {
+	// @extend .body;
+	font-family: "Lato", sans-serif;
+	font-size: 17px;
+	padding-top: 5px;
+	font-weight: bold !important;
+	color: vars.$formik-error-color;
+}
+
 // Text clases
 
 .t1 {

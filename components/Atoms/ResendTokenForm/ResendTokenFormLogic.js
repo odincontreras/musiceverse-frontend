@@ -1,30 +1,16 @@
 import nprogress from "nprogress";
 
-export const changeHandler = (e, formInputs) => {
-	formInputs.current = {
-		...formInputs.current,
-		[e.target.name]: e.target.value,
-	};
-};
-
-export const submitHandler = async (e, formInputs, toast, setUserEmail) => {
-	e.preventDefault();
-
-	const bodyData = {
-		email: formInputs.current.email,
-		password: formInputs.current.password,
-	};
-
+export const submitHandler = async (formInputs, toast, setUserEmail) => {
 	nprogress.start();
 
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_API_URL}/users/resend-verification-token/`,
 		{
-			method: 'POST',
+			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(bodyData),
+			body: JSON.stringify(formInputs),
 		}
 	);
 
@@ -34,7 +20,7 @@ export const submitHandler = async (e, formInputs, toast, setUserEmail) => {
 	nprogress.done();
 
 	if (response.ok) {
-		return setUserEmail(bodyData.email);
+		return setUserEmail(formInputs.email);
 	}
 
 	return toast({

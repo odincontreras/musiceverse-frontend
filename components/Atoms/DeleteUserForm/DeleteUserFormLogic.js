@@ -2,18 +2,14 @@ const nprogress = require("nprogress");
 import { setUser } from "store/reducers/user";
 
 export const submitHandler = async (
-	e,
 	formInputs,
 	email,
 	token,
 	router,
 	toast,
-	dispatch,
-	removeCookie
+	dispatch
 ) => {
-	e.preventDefault();
-
-	const confirmationToken = formInputs.current.confirmationToken;
+	const confirmationToken = formInputs.confirmationToken;
 
 	const bodyData = {
 		confirmationToken,

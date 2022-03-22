@@ -2,28 +2,16 @@ import getJwt from "helpers/getJwt";
 import nprogress from "nprogress";
 import { setUser } from "store/reducers/user";
 
-export const changeHandler = (e, formInputs) => {
-	formInputs.current = {
-		...formInputs.current,
-		[e.target.name]: e.target.value,
-	};
-
-	console.log(formInputs.current);
-};
-
 export const submitHandler = async (
-	e,
 	formInputs,
 	token,
 	router,
 	toast,
 	dispatch
 ) => {
-	e.preventDefault();
-
 	const bodyData = {
 		token,
-		newPassword: formInputs.current.newPassword,
+		newPassword: formInputs.password,
 	};
 
 	nprogress.start();
@@ -63,11 +51,11 @@ export const submitHandler = async (
 
 	//# MANEJO DE ERROR. Si el usuario tiene una sesion activa se redirige a la ruta del profile para que solucite de nuevo el cambio de contraseña si no posee una sesion lo se redirige al login, al final se indica el error
 
-	if (sessiontoken) {
-		router.push("/profile");
-	} else {
-		router.push("/login");
-	}
+	// if (sessiontoken) {
+	// 	router.push("/profile");
+	// } else {
+	// 	router.push("/login");
+	// }
 
 	return toast({
 		title: data.message || "Error updating password, please try again.",

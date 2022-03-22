@@ -1,16 +1,12 @@
-import { updateUser } from "store/reducers/user";
 import nprogress from "nprogress";
 
 export default async function submitHandler(
-	e,
 	formInputs,
 	token,
 	setNewEmail,
 	toast
 ) {
-	e.preventDefault();
-
-	const newEmail = formInputs.current.newEmail;
+	const newEmail = formInputs.email;
 
 	nprogress.start();
 
